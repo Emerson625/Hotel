@@ -453,6 +453,7 @@
 		function manutencao_ar () {
 
 			let empresa_barata = "";
+			let valor_minimo = 0;
 
 			do {
 				var	nome_empresa = prompt("Qual o nome da empresa?");
@@ -461,39 +462,37 @@
 				var desconto = parseFloat(prompt("Qual a porcentagem de desconto?"));
 				var qnt_para_desconto = parseInt(prompt("Qual o número mínimo de aparelhos para conseguir o desconto?"));
 
-				if(empresa_barata === "") {
-				
-					empresa_barata = nome_empresa;
-
-				} else {
-
-					empresa_barata = nome_empresa;
-
-				}
-
 
 
 				if (qnt_aparelho >= qnt_para_desconto) {
 
-					var valor_total = [];
-
-					valor_total.push((valor_aparelho * qnt_aparelho) - ((desconto * (valor_aparelho * qnt_aparelho)) / 100));
+					var valor_total = ((valor_aparelho * qnt_aparelho) - ((desconto * (valor_aparelho * qnt_aparelho)) / 100));
 
 				} else {
 
-					var valor_total = [];
-
-					valor_total.push(valor_aparelho * qnt_aparelho);
+					valor_total = (valor_aparelho * qnt_aparelho);
 
 				}
 
-				alert(`O serviço de ${empresa_barata} custará R$ ${valor_total}.`)
+				if(empresa_barata === "") {
+				
+				empresa_barata = nome_empresa;
+				valor_minimo = valor_total;
+
+				} else if (valor_minimo > valor_total) {
+
+				empresa_barata = nome_empresa;
+				valor_minimo = valor_total;
+
+				}
+
+				alert(`O serviço de ${nome_empresa} custará R$ ${valor_total}.`)
 
 				var novos_dados = prompt(`Deseja informar novos dados, ${usuário}? (S/N)`);
 
 				if(novos_dados === "N") {
 
-					alert(`O orçamento de menor valor é o ${empresa_barata} por R$ ${Math.min(valor_total)}.`);
+					alert(`O orçamento de menor valor é o ${empresa_barata} por R$ ${valor_minimo}.`);
 
 				}
 
